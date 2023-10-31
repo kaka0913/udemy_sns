@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "209729532551",
+    "project_id": "udemy-new-sns-app",
+    "storage_bucket": "udemy-new-sns-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209729532551:android:f96cd0c42a82bdab2e3e22",
+        "android_client_info": {
+          "package_name": "com.example.udemy_flutter_sns"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAaGkW89BlDjaDIOVFANxAd20Gdp5DEQDs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
