@@ -1,9 +1,9 @@
 // flutter
 import 'package:flutter/material.dart';
-// packages
+// package
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
-// models
+// model
 import 'main_model.dart';
 // options
 import 'firebase_options.dart';
@@ -17,12 +17,14 @@ void main() async {
 }
  
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
+ 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Flutter Demo",
+      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -32,11 +34,13 @@ class MyApp extends StatelessWidget {
 }
  
 class MyHomePage extends ConsumerWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
+ 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final MainModel mainModel = ref.watch(mainProvider);
+ 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -49,14 +53,14 @@ class MyHomePage extends ConsumerWidget {
               'You have pushed the button this many times:',
             ),
             Text(
-              '${mainModel.counter}',
-              style: Theme.of(context).textTheme.headlineMedium,
+              mainModel.counter.toString(),
+              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: mainModel.incrementCounter,
+        onPressed: () => mainModel.createUser(context: context),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
