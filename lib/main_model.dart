@@ -1,7 +1,7 @@
 // flutter
 import 'package:flutter/material.dart';
 // package
-import 'package:uuid/uuid.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // domain
@@ -14,21 +14,36 @@ final mainProvider = ChangeNotifierProvider(
 class MainModel extends ChangeNotifier {
  
   int counter = 0;
-  Future<void> createUser({required BuildContext context}) async {
-    final String v4 = const Uuid().v4();
+  User? currentUser;
+  // auth
+  String email = "";
+  String password = "";
+ 
+  Future<void> createFirestoreUser({required BuildContext context,required String uid}) async {
     final Timestamp now = Timestamp.now();
     final FirestoreUser firestoreUser = FirestoreUser(
       createdAt: now,
-      uid: v4,
+      uid: uid,
       updatedAt: now,
       userName: "Alice",
     );
     final Map<String,dynamic> userData = firestoreUser.toJson();
-    await FirebaseFirestore.instance.collection("users").doc().set(userData);
+    await FirebaseFirestore.instance.collection("users").doc(uid).set(userData);
     if(context.mounted){
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('ユーザーが作成できました')));
-    }   
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('ユーザーが作成できました')));
+}   
     notifyListeners();
+  }
+ 
+  Future<void> createUser({required BuildContext context}) async {
+    try {
+      final result = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      final User? user = result.user;
+      final String uid = user!.uid;
+      await createFirestoreUser(context: context,uid: uid);
+    } on FirebaseAuthException catch(e) {
+      debugPrint(e.toString());
+    }
   }
   
 }
