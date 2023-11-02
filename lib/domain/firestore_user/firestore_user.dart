@@ -8,6 +8,7 @@ abstract class FirestoreUser with _$FirestoreUser {
  const factory FirestoreUser({
    required dynamic createdAt,
    required String userName,
+   required String email,
    required String uid,
    required dynamic updatedAt,
   }) = _FirestoreUser;

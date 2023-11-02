@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 // model
-import 'main_model.dart';
+import 'models/main_model.dart';
 // options
 import 'firebase_options.dart';
  
@@ -40,36 +40,21 @@ class MyHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final MainModel mainModel = ref.watch(mainProvider);
-    final TextEditingController emailEditingController = TextEditingController();
-    final TextEditingController passwordEditingController = TextEditingController();
+    
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Column(
-        children: [
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
-            controller: emailEditingController,
-            onChanged: (text) => mainModel.email = text,
-          ),
-          TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-            controller: passwordEditingController,
-            onChanged: (text) => mainModel.password = text,
-          ),
-          Center(
-            child: mainModel.currentUser == null ?
-            const Text("Nullです")
-            : const Text("Nullじゃないです")
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            InkWell(child: Icon(Icons.person),),
+            InkWell(child: Icon(Icons.person),),
+            Text("Nullです")
+          ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => mainModel.createUser(context: context),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      )
     );
   }
 }
