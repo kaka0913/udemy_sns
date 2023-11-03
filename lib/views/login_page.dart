@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // model
-import 'package:udemy_flutter_sns/models//login_model.dart';
+import 'package:udemy_flutter_sns/models/login_model.dart';
  
 class LoginPage extends ConsumerWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -35,11 +35,6 @@ class LoginPage extends ConsumerWidget {
                 onTap: () => loginModel.toggleIsObscure(),
               )
             ),
-          ),
-          Center(
-            child: loginModel.currentUser == null ?
-            const Text("Nullです")
-            : const Text("Nullじゃないです")
           ),
         ],
       ),
