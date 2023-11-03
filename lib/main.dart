@@ -10,6 +10,7 @@ import 'models/main_model.dart';
 import 'firebase_options.dart';
 // constants
  import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/constants/strings.dart';
  // components
  import 'package:udemy_flutter_sns/details/rounded_button.dart';
  
@@ -32,13 +33,13 @@ class MyApp extends ConsumerWidget {
     final MainModel mainModel = ref.watch(mainProvider);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: mainModel.currentUser == null ?
       LoginPage(mainModel: mainModel,) : 
-      MyHomePage(title: 'Flutter Demo Home Page',mainModel: mainModel,),
+      MyHomePage(title: appTitle,mainModel: mainModel,),
     );
   }
 }
@@ -67,15 +68,14 @@ class MyHomePage extends StatelessWidget {
               onPressed: () => routes.toSignupPage(context: context),
               widthRate: 0.85,
               color: Colors.blue,
-              text: "サインアップページ"
+              text: signupText
             ),
             RoundedButton(
-            onPressed: () => routes.toLoginPage(context: context, mainModel: mainModel),
-            widthRate: 0.85, 
-            color: Colors.green,
-            text: "ログインページ"
-          ),
-            Text("Nullです")
+              onPressed: () => routes.toLoginPage(context: context, mainModel: mainModel),
+              widthRate: 0.85, 
+              color: Colors.green,
+              text: loginText
+            ),
           ],
       ),
       )

@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// constants
+import 'package:udemy_flutter_sns/constants/strings.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
 import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
@@ -18,7 +20,7 @@ class SignupPage extends ConsumerWidget {
     final TextEditingController passwordEditingController = TextEditingController(text: signupModel.password);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("サインアップ"),
+        title: const Text(signupTitle),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -29,7 +31,7 @@ class SignupPage extends ConsumerWidget {
             onChanged: (text) => signupModel.email = text,
             borderColor: Colors.black,
             shadowColor: const Color(0xFF77BFA3).withOpacity(0.3),
-            hintText: "メールアドレス"
+            hintText: mailAddressText
           ),
           RoundedPasswordField(
             onChanged: (text) => signupModel.password = text,
@@ -43,7 +45,7 @@ class SignupPage extends ConsumerWidget {
             onPressed: () async => await signupModel.createUser(context: context),
             widthRate: 0.85,
             color: Colors.red.withOpacity(0.5),
-            text: "新規登録"
+            text: signupText
           )
         ],
       ),

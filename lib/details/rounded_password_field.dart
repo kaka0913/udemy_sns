@@ -1,6 +1,8 @@
 // flutter
 import 'package:flutter/material.dart';
 import 'package:udemy_flutter_sns/details/text_field_container.dart';
+// constants
+import 'package:udemy_flutter_sns/constants/strings.dart';
  
 class RoundedPasswordField extends StatelessWidget {
   
@@ -35,7 +37,7 @@ class RoundedPasswordField extends StatelessWidget {
             onTap: toggleObscureText,
             child: obscureText ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
           ),
-          hintText: "パスワード",
+          hintText: passwordText,
           hintStyle: const TextStyle(fontWeight: FontWeight.bold),
         ),
       ),

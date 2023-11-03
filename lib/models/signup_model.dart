@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:udemy_flutter_sns/constants/strings.dart';
 // domain
 import 'package:udemy_flutter_sns/domain/firestore_user/firestore_user.dart';
  
@@ -30,8 +31,8 @@ class SignupModel extends ChangeNotifier {
       userName: "Alice",
     );
     final Map<String,dynamic> userData = firestoreUser.toJson();
-    await FirebaseFirestore.instance.collection("users").doc(uid).set(userData);
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('ユーザーが作成できました')));
+    await FirebaseFirestore.instance.collection(usersFieldKey).doc(uid).set(userData);
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(userCreatedMsg)));
     notifyListeners();
   }
  

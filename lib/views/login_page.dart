@@ -9,6 +9,8 @@ import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // model
 import 'package:udemy_flutter_sns/models/login_model.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
+// constants
+import 'package:udemy_flutter_sns/constants/strings.dart';
  
 class LoginPage extends ConsumerWidget {
   const LoginPage({
@@ -24,7 +26,7 @@ class LoginPage extends ConsumerWidget {
     final TextEditingController passwordEditingController = TextEditingController(text: loginModel.password);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ログイン"),
+        title: const Text(loginTitle),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -35,7 +37,7 @@ class LoginPage extends ConsumerWidget {
             onChanged: (text) => loginModel.email = text,
             borderColor: Colors.black,
             shadowColor: Colors.red.withOpacity(0.3),
-            hintText: "メールアドレス",
+            hintText: mailAddressText
           ),
           RoundedPasswordField(
             onChanged: (text) => loginModel.password = text,
@@ -49,7 +51,7 @@ class LoginPage extends ConsumerWidget {
             onPressed: () async => await loginModel.login(context: context,mainModel: mainModel),
             widthRate: 0.85, 
             color: Colors.green,
-            text: "ログイン"
+            text: loginText
           ),
         ],
       ),
