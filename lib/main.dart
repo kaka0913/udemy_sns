@@ -76,6 +76,12 @@ class MyHomePage extends StatelessWidget {
               color: Colors.green,
               text: loginText
             ),
+            RoundedButton(
+              onPressed: () async => await mainModel.logout(context: context, mainModel: mainModel),
+              widthRate: 0.85, 
+              color: Colors.red,
+              text: logoutText
+            ),
           ],
       ),
       )
