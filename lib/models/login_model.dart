@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
- 
+// constants
+import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+import 'package:udemy_flutter_sns/models/main_model.dart';
 final loginProvider = ChangeNotifierProvider(
   ((ref) => LoginModel()
 ));
@@ -15,11 +17,11 @@ class LoginModel extends ChangeNotifier {
   String password = "";
   bool isObscure = true;
  
-  Future<void> login({required BuildContext context}) async {
+  Future<void> login({required BuildContext context,required MainModel mainModel}) async {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-      currentUser = FirebaseAuth.instance.currentUser;
-      notifyListeners();
+      routes.toMyApp(context: context);
+      mainModel.setCurrentUser();
     } on FirebaseAuthException catch(e) {
       debugPrint(e.toString());
     }

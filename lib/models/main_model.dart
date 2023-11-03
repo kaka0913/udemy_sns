@@ -10,5 +10,8 @@ final mainProvider = ChangeNotifierProvider(
  
 class MainModel extends ChangeNotifier {
   User? currentUser;
- 
+  void setCurrentUser() {
+    currentUser = FirebaseAuth.instance.currentUser;
+    notifyListeners();
+  }
 }

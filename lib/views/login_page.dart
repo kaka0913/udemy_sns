@@ -4,9 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // model
 import 'package:udemy_flutter_sns/models/login_model.dart';
+import 'package:udemy_flutter_sns/models/main_model.dart';
  
 class LoginPage extends ConsumerWidget {
-  const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({
+    Key? key,
+    required this.mainModel
+  }) : super(key: key);
+  final MainModel mainModel;
+ 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final LoginModel loginModel = ref.watch(loginProvider);
@@ -39,7 +45,7 @@ class LoginPage extends ConsumerWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => loginModel.login(context: context),
+        onPressed: () async => await loginModel.login(context: context,mainModel: mainModel),
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),

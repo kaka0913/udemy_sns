@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:udemy_flutter_sns/views/signup_page.dart';
+import 'package:udemy_flutter_sns/views/login_page.dart';
 // model
 import 'models/main_model.dart';
 // options
@@ -29,7 +29,6 @@ class MyApp extends ConsumerWidget {
     // MyAppが起動した最初の時にユーザーがログインしているかどうかの確認
     // この変数を1回きり
     final MainModel mainModel = ref.watch(mainProvider);
-    final User? onceUser = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -37,15 +36,20 @@ class MyApp extends ConsumerWidget {
         primarySwatch: Colors.blue,
       ),
       home: mainModel.currentUser == null ?
-      SignupPage() : 
-      const MyHomePage(title: 'Flutter Demo Home Page'),
+      LoginPage(mainModel: mainModel,) : 
+      MyHomePage(title: 'Flutter Demo Home Page',mainModel: mainModel,),
     );
   }
 }
  
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  const MyHomePage({
+    Key? key, 
+    required this.mainModel,
+    required this.title
+  }) : super(key: key);
   final String title;
+  final MainModel mainModel;
  
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class MyHomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             ElevatedButton(onPressed: () => routes.toSignupPage(context: context), child: Text("サインアップページ")),
-            ElevatedButton(onPressed: () => routes.toLoginPage(context: context), child: Text("ログインページ")),
+            ElevatedButton(onPressed: () => routes.toLoginPage(context: context,mainModel: mainModel), child: Text("ログインページ")),
             Text("Nullです")
           ],
       ),
