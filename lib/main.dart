@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // package
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
 // model
 import 'models/main_model.dart';
@@ -11,6 +10,8 @@ import 'models/main_model.dart';
 import 'firebase_options.dart';
 // constants
  import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
+ // components
+ import 'package:udemy_flutter_sns/details/rounded_button.dart';
  
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -62,8 +63,18 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            ElevatedButton(onPressed: () => routes.toSignupPage(context: context), child: Text("サインアップページ")),
-            ElevatedButton(onPressed: () => routes.toLoginPage(context: context,mainModel: mainModel), child: Text("ログインページ")),
+            RoundedButton(
+              onPressed: () => routes.toSignupPage(context: context),
+              widthRate: 0.85,
+              color: Colors.blue,
+              text: "サインアップページ"
+            ),
+            RoundedButton(
+            onPressed: () => routes.toLoginPage(context: context, mainModel: mainModel),
+            widthRate: 0.85, 
+            color: Colors.green,
+            text: "ログインページ"
+          ),
             Text("Nullです")
           ],
       ),

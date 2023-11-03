@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
 import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
+import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // model
 import 'package:udemy_flutter_sns/models/login_model.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
@@ -44,12 +45,13 @@ class LoginPage extends ConsumerWidget {
             borderColor: Colors.black, 
             shadowColor: Colors.blue.withOpacity(0.3),
           ),
+          RoundedButton(
+            onPressed: () async => await loginModel.login(context: context,mainModel: mainModel),
+            widthRate: 0.85, 
+            color: Colors.green,
+            text: "ログイン"
+          ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async => await loginModel.login(context: context,mainModel: mainModel),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

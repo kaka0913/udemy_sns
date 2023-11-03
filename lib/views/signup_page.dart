@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
 import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
+import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // models
 import 'package:udemy_flutter_sns/models/signup_model.dart';
  
@@ -38,12 +39,13 @@ class SignupPage extends ConsumerWidget {
             borderColor: Colors.black, 
             shadowColor: const Color(0xFFEDEEC9)
           ),
+          RoundedButton(
+            onPressed: () async => await signupModel.createUser(context: context),
+            widthRate: 0.85,
+            color: Colors.red.withOpacity(0.5),
+            text: "新規登録"
+          )
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => signupModel.createUser(context: context),
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
