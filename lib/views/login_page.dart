@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// components
+import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
+import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
 // model
 import 'package:udemy_flutter_sns/models/login_model.dart';
 import 'package:udemy_flutter_sns/models/main_model.dart';
@@ -23,24 +26,23 @@ class LoginPage extends ConsumerWidget {
         title: const Text("ログイン"),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
+          RoundedTextField(
             controller: emailEditingController,
+            keyboardType: TextInputType.emailAddress,
             onChanged: (text) => loginModel.email = text,
+            borderColor: Colors.black,
+            shadowColor: Colors.red.withOpacity(0.3),
+            hintText: "メールアドレス",
           ),
-          TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-            controller: passwordEditingController,
+          RoundedPasswordField(
             onChanged: (text) => loginModel.password = text,
-            obscureText: loginModel.isObscure,
-            decoration: InputDecoration(
-              suffix: 
-              InkWell(
-                child: loginModel.isObscure ? const Icon(Icons.visibility_off) : const Icon(Icons.visibility),
-                onTap: () => loginModel.toggleIsObscure(),
-              )
-            ),
+            passwordEditingController: passwordEditingController, 
+            obscureText: loginModel.isObscure, 
+            toggleObscureText: () => loginModel.toggleIsObscure(),
+            borderColor: Colors.black, 
+            shadowColor: Colors.blue.withOpacity(0.3),
           ),
         ],
       ),

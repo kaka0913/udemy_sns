@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 // components
 import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
+import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
 // models
 import 'package:udemy_flutter_sns/models/signup_model.dart';
  
@@ -19,6 +20,7 @@ class SignupPage extends ConsumerWidget {
         title: const Text("サインアップ"),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           RoundedTextField(
             controller: emailEditingController,
@@ -28,23 +30,13 @@ class SignupPage extends ConsumerWidget {
             shadowColor: const Color(0xFF77BFA3).withOpacity(0.3),
             hintText: "メールアドレス"
           ),
-          TextFormField(
-            keyboardType: TextInputType.visiblePassword,
-            controller: passwordEditingController,
+          RoundedPasswordField(
             onChanged: (text) => signupModel.password = text,
-            obscureText: signupModel.isObscure,
-            decoration: InputDecoration(
-              suffix: 
-              InkWell(
-                child: const Icon(Icons.visibility_off),
-                onTap: () => signupModel.toggleIsObscure(),
-              )
-            ),
-          ),
-          Center(
-            child: signupModel.currentUser == null ?
-            const Text("Nullです")
-            : const Text("Nullじゃないです")
+            passwordEditingController: passwordEditingController, 
+            obscureText: signupModel.isObscure, 
+            toggleObscureText: () => signupModel.toggleIsObscure(), 
+            borderColor: Colors.black, 
+            shadowColor: const Color(0xFFEDEEC9)
           ),
         ],
       ),
