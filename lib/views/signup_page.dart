@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 // packages
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+// components
+import 'package:udemy_flutter_sns/details/rounded_text_field.dart';
 // models
 import 'package:udemy_flutter_sns/models/signup_model.dart';
+ 
 class SignupPage extends ConsumerWidget {
   const SignupPage({Key? key}) : super(key: key);
   @override
@@ -17,10 +20,13 @@ class SignupPage extends ConsumerWidget {
       ),
       body: Column(
         children: [
-          TextFormField(
-            keyboardType: TextInputType.emailAddress,
+          RoundedTextField(
             controller: emailEditingController,
+            keyboardType: TextInputType.emailAddress,
             onChanged: (text) => signupModel.email = text,
+            borderColor: Colors.black,
+            shadowColor: const Color(0xFF77BFA3).withOpacity(0.3),
+            hintText: "メールアドレス"
           ),
           TextFormField(
             keyboardType: TextInputType.visiblePassword,
