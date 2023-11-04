@@ -1,6 +1,7 @@
 // flutter
 import 'package:flutter/material.dart';
 // package
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:udemy_flutter_sns/views/login_page.dart';
@@ -22,39 +23,38 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
  
-class MyApp extends ConsumerWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
  
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
-    // MyAppが起動した最初の時にユーザーがログインしているかどうかの確認
-    // この変数を1回きり
-    final MainModel mainModel = ref.watch(mainProvider);
+  Widget build(BuildContext context) {
+    //MyAppが起動した時にユーザがログインしているかどうかを確認する
+    //この変数は１度しかつかわないので、finalをつけている
+    final User? oneceUser = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: mainModel.currentUser == null ?
-      LoginPage(mainModel: mainModel,) : 
-      MyHomePage(title: appTitle,mainModel: mainModel,),
+      home: oneceUser == null ?
+      LoginPage() : 
+      MyHomePage(title: appTitle),
     );
   }
 }
  
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends ConsumerWidget {
   const MyHomePage({
     Key? key, 
-    required this.mainModel,
     required this.title
   }) : super(key: key);
   final String title;
-  final MainModel mainModel;
  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    //Mainmodelが起動されinitが実行される
+    final MainModel mainModel = ref.watch(mainProvider);
     
     return Scaffold(
       appBar: AppBar(
@@ -67,14 +67,17 @@ class MyHomePage extends StatelessWidget {
             RoundedButton(
               onPressed: () => routes.toSignupPage(context: context),
               widthRate: 0.85,
-              color: Colors.blue,
+              color: const Color.fromRGBO(33, 150, 243, 1),
               text: signupText
             ),
             RoundedButton(
-              onPressed: () => routes.toLoginPage(context: context, mainModel: mainModel),
+              onPressed: () => routes.toLoginPage(context: context),
               widthRate: 0.85, 
               color: Colors.green,
               text: loginText
+            ),
+            Center(
+              child: Text(mainModel.currentUserDoc["name"]),
             ),
             RoundedButton(
               onPressed: () async => await mainModel.logout(context: context, mainModel: mainModel),

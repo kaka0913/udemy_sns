@@ -8,16 +8,13 @@ import 'package:udemy_flutter_sns/details/rounded_password_field.dart';
 import 'package:udemy_flutter_sns/details/rounded_button.dart';
 // model
 import 'package:udemy_flutter_sns/models/login_model.dart';
-import 'package:udemy_flutter_sns/models/main_model.dart';
 // constants
 import 'package:udemy_flutter_sns/constants/strings.dart';
  
 class LoginPage extends ConsumerWidget {
   const LoginPage({
     Key? key,
-    required this.mainModel
   }) : super(key: key);
-  final MainModel mainModel;
  
   @override
   Widget build(BuildContext context,WidgetRef ref) {
@@ -48,7 +45,7 @@ class LoginPage extends ConsumerWidget {
             shadowColor: Colors.blue.withOpacity(0.3),
           ),
           RoundedButton(
-            onPressed: () async => await loginModel.login(context: context,mainModel: mainModel),
+            onPressed: () async => await loginModel.login(context: context),
             widthRate: 0.85, 
             color: Colors.green,
             text: loginText
