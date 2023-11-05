@@ -9,7 +9,7 @@ class RoundedTextField extends StatelessWidget {
     required this.controller,
     required this.shadowColor,
     required this.borderColor,
-    required this.hintText,
+    required this.hintText, 
  
   }) : super(key: key);
   final TextInputType keyboardType;

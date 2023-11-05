@@ -8,6 +8,7 @@ const String passwordText = "パスワード";
 const String signupText = "新規登録を行う";
 const String loginText = "ログインする";
 const String logoutText = "ログアウトを行う";
+const String loadingText = "Loading";
 // FieldKey
 const String usersFieldKey = "users";
 // message

@@ -10,7 +10,6 @@ import 'models/main_model.dart';
 // options
 import 'firebase_options.dart';
 // constants
- import 'package:udemy_flutter_sns/constants/routes.dart' as routes;
 import 'package:udemy_flutter_sns/constants/strings.dart';
  // components
  import 'package:udemy_flutter_sns/details/rounded_button.dart';
@@ -26,20 +25,21 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
  
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    //MyAppが起動した時にユーザがログインしているかどうかを確認する
-    //この変数は１度しかつかわないので、finalをつけている
-    final User? oneceUser = FirebaseAuth.instance.currentUser;
+    // MyAppが起動した最初の時にユーザーがログインしているかどうかの確認
+    // この変数を1回きり
+    final User? onceUser = FirebaseAuth.instance.currentUser;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: appTitle,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: oneceUser == null ?
-      LoginPage() : 
-      MyHomePage(title: appTitle),
+      home: onceUser == null ?
+      const LoginPage() : 
+      const MyHomePage(title: appTitle),
     );
   }
 }
@@ -53,32 +53,20 @@ class MyHomePage extends ConsumerWidget {
  
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    //Mainmodelが起動されinitが実行される
     final MainModel mainModel = ref.watch(mainProvider);
-    
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
+      body: mainModel.isLoading ?
+      const Center(
+        child: Text(loadingText),
+      ) : 
+      Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            RoundedButton(
-              onPressed: () => routes.toSignupPage(context: context),
-              widthRate: 0.85,
-              color: const Color.fromRGBO(33, 150, 243, 1),
-              text: signupText
-            ),
-            RoundedButton(
-              onPressed: () => routes.toLoginPage(context: context),
-              widthRate: 0.85, 
-              color: Colors.green,
-              text: loginText
-            ),
-            Center(
-              child: Text(mainModel.currentUserDoc["name"]),
-            ),
+            Text("私の名前は${mainModel.currentUserDoc["uid"]}です"),
             RoundedButton(
               onPressed: () async => await mainModel.logout(context: context, mainModel: mainModel),
               widthRate: 0.85, 
