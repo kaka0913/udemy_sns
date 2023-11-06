@@ -13,3 +13,7 @@ const String loadingText = "Loading";
 const String usersFieldKey = "users";
 // message
 const String userCreatedMsg = "ユーザーが作成できました";
+// bottom navigation bar
+const String homeText = "Home";
+const String searchText = "Search";
+const String profileText = "Profile";
